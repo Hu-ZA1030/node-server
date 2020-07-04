@@ -48,11 +48,14 @@ router.get("/list",function(req,res){
   var {page,size,name,hot,cate,max_price,min_price,brand,shop_id} = req.query
 
   // 非必填数据的处理
-  page=parseInt(page?page:1)
-  size=parseInt(size?size:4)
+  hot = hot || false;
+  page = parseInt(page||1)
+  size = parseInt(size||10)
+  cate = cate || ''
+
   var params = {
-    hot:hot?hot:false,
-    cate:cate?cate:false
+    cate,
+    hot,
   }
   if(!params.hot) delete params.hot
   if(!params.cate) delete params.cate
@@ -66,6 +69,16 @@ router.get("/list",function(req,res){
   })
 })
 
+
+// 查询商品详情
+router.get("/getGoodDetail",function(req,res){
+    var {good_id} = req.query
+    if(!good_id) return res.json({err:1,msg:"商品id是必填参数"})
+    goodModel.find({_id:good_id}).then(arr=>{
+      console.log("arr",arr)
+      res.json({err:0,msg:"success",data:arr[0]})
+    })
+})
 
 
 module.exports = router;

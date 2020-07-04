@@ -3,7 +3,8 @@ var router = express.Router();
 var cartModel = require("../model/carts")
 var userModel = require("../model/users")
 var goodModel = require("../model/goods")
-var jwt = require("../utils/jwt")
+var jwt = require("../utils/jwt");
+const { token } = require('morgan');
 
 /* 添加购物车 */
 router.get('/addCart', function(req, res){
@@ -43,6 +44,24 @@ router.get('/addCart', function(req, res){
         
         }
     }).catch(()=>{res.json({err:0,msg:"当前商品不存在，无法购买"}) })
+
+})
+
+
+//获取购物车列表
+router.get("/getCartList",function(req,res){
+    let {page,size} = req.query
+
+    // page和size 若没有传到后端就给默认值
+    page = parseInt(page || 1)
+    size = parseInt(size ||  1000)
+    
+    // 获取token 
+    var token = req.headers.authorization
+    jwt.verifyToken(token).then(user=>{
+        console.log("user",user);
+        
+    }) 
 
 })
 
