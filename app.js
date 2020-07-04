@@ -11,7 +11,7 @@ var cartRouter = require('./routes/cart');
 var cateRouter = require('./routes/cate'); 
 var uploadRouter = require("./routes/upload");
 var articleRouter = require("./routes/article");
-
+var adRouter = require("./routes/ad");
 
 var app = express();
 //  app.use()  注册并使用中间件
@@ -36,7 +36,8 @@ app.use('/api/users', usersRouter);
 app.use('/api/good', goodRouter);
 app.use('/api/cart', cartRouter);
 app.use('/api/cate', cateRouter);
-app.use("/upload",uploadRouter)
-app.use("/api/article",articleRouter)
+app.use("/upload",uploadRouter);
+app.use("/api/article",articleRouter);
+app.use("/api/ad",adRouter);
 
 module.exports = app;

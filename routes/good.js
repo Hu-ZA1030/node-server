@@ -59,6 +59,7 @@ router.get("/list",function(req,res){
   }
   if(!params.hot) delete params.hot
   if(!params.cate) delete params.cate
+  // count() 查询集合中的文档数量，返回的total是数量
   goodModel.count().then(total=>{
     goodModel.find(params).skip((page-1)*size).limit(size).then(arr=>{
       res.json({err:0,msg:"success",data:{
